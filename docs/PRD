@@ -1,0 +1,682 @@
+# NapNook — Product Requirements Document (PRD)
+
+**Version:** 1.0  
+**Status:** Draft — ready for prototype validation  
+**Product:** NapNook  
+**Platform:** iOS  
+**Document owner:** Product  
+**Last updated:** 20 November 2026
+
+---
+
+## 1. Product Overview
+
+### 1.1 Product Vision
+
+Help new parents capture, organise and understand their newborn's daily activities with minimal effort, reducing the mental burden of remembering important details.
+
+### 1.2 Product Positioning
+
+**Less remembering. More being there.**
+
+NapNook is a shared, voice-first memory for a baby's daily routine.
+
+Parents capture information naturally. NapNook organises it into a structured timeline that both parents can access, review and search whenever they need it.
+
+### 1.3 Problem Statement
+
+New parents often need to remember details about feeding, sleep, nappies and other daily activities. That information can become fragmented across messaging apps, notes, spreadsheets, paper notebooks and memory.
+
+Existing tracking methods can introduce additional work. Parents may stop using them because recording every event requires time and attention that they would rather spend caring for their baby.
+
+NapNook aims to make capturing and retrieving information easier without making parents feel obligated to document everything.
+
+---
+
+## 2. Discovery Background
+
+### 2.1 Research Conducted
+
+Four exploratory interviews were conducted with parents:
+
+- Sarah: first child; uses a baby tracking app and WhatsApp.
+- James: second child; relies mainly on memory and conversations.
+- Priya: first child; uses Google Sheets and WhatsApp to coordinate shared care.
+- Mariana: second child; prefers a paper notebook and WhatsApp.
+
+### 2.2 Key Findings
+
+**1. Recording information can become a burden.**
+
+Parents described abandoning detailed tracking because it required too much attention and interaction.
+
+**2. Information becomes fragmented.**
+
+Some parents move between messaging apps, spreadsheets, notebooks and tracking applications to reconstruct what happened.
+
+**3. Shared information is useful.**
+
+When both parents participate in care, they need access to the same information without relying exclusively on verbal updates.
+
+**4. Parents sometimes struggle to recall exact details.**
+
+Examples included remembering the amount of formula given overnight or estimating feeding frequency during an appointment.
+
+**5. Not every parent wants to track everything.**
+
+Some parents prefer a lightweight record rather than a detailed tracking routine.
+
+These interviews provide directional qualitative evidence, not statistically representative market validation.
+
+### 2.3 Product Opportunity
+
+Create a shared memory that makes it easy to capture, organise and retrieve information about a baby's routine without requiring parents to complete repetitive forms.
+
+---
+
+## 3. Product Goals and Non-Goals
+
+### 3.1 Goals
+
+1. Reduce the effort required to record baby-related activities.
+2. Make voice the primary capture experience.
+3. Automatically transform natural language into structured records.
+4. Give both parents access to the same history on separate iPhones.
+5. Make historical information easy to find.
+6. Allow parents to correct, edit and delete records.
+7. Avoid creating pressure to record every activity.
+8. Protect sensitive family and baby information.
+
+### 3.2 Non-Goals
+
+The MVP will not:
+
+- Provide medical diagnoses or treatment recommendations.
+- Predict health conditions or detect medical emergencies.
+- Replace professional healthcare advice.
+- Require parents to record every feeding, nap or nappy change.
+- Support grandparents, babysitters or other caregiver accounts.
+- Support multiple babies or multiple family profiles.
+- Integrate with wearables or external baby-monitoring devices.
+- Include subscriptions or monetisation.
+- Introduce complex analytics dashboards.
+- Send frequent reminders or guilt-inducing notifications.
+
+---
+
+## 4. Target Users and Access Model
+
+### 4.1 Primary Users
+
+**Parent 1 and Parent 2**
+
+Both parents participate in caring for the baby and need access to a common record of daily activities.
+
+### 4.2 Access Decision
+
+<mark>Only the two parents can access the baby's history.</mark>
+
+Requirements:
+
+- Each parent uses their own iPhone.
+- Both parents belong to the same private household.
+- Both parents can create records.
+- Both parents can view the complete shared timeline.
+- Both parents can edit and delete records.
+- No additional caregiver accounts are supported in the MVP.
+- Household membership must be protected by authentication and authorisation.
+
+The product must not assume that one parent's device is always available to the other.
+
+### 4.3 Core User Needs
+
+- "I want to record something without stopping what I'm doing."
+- "I want my partner to know what happened without having to message them."
+- "I want to check when the baby last fed."
+- "I want to find information from earlier today or yesterday."
+- "I don't want to feel guilty if I forget to record something."
+
+---
+
+## 5. MVP Scope
+
+The MVP is organised around three core capabilities.
+
+### 5.1 Natural Capture
+
+Parents can create records using:
+
+- Voice input — primary experience.
+- Text input — alternative experience.
+
+Examples:
+
+- "Thomas had 90 ml of formula at 2 AM."
+- "He slept from 10 until half past eleven."
+- "We changed his nappy and it was wet."
+- "He breastfed on the left side for around 15 minutes."
+
+The system should support natural language rather than requiring parents to navigate multiple fields.
+
+### 5.2 Automatic Organisation
+
+NapNook uses AI to transform captured information into structured events.
+
+The system should identify, when available:
+
+- Event category.
+- Event date and time.
+- Duration.
+- Quantity.
+- Unit of measurement.
+- Relevant attributes.
+- Additional notes.
+
+The original input should remain associated with the structured record so that parents can understand how it was interpreted.
+
+### 5.3 Shared Memory and Retrieval
+
+Both parents can access the same timeline from their own devices.
+
+They can:
+
+- Browse records chronologically.
+- Filter by event category.
+- Search historical records.
+- View event details.
+- Edit or delete records.
+- See which records were created or updated by each parent.
+
+---
+
+## 6. Functional Requirements
+
+### FR-01 — Parent Authentication
+
+**Priority:** Must have
+
+Parents must authenticate before accessing the household history.
+
+Acceptance criteria:
+
+- A parent can create or join a private household.
+- The household supports exactly two parent accounts in the MVP.
+- An invitation mechanism allows the second parent to join.
+- Unauthenticated users cannot access baby records.
+- Users outside the household cannot access its records.
+- A parent cannot access another household's data.
+
+### FR-02 — Voice Capture
+
+**Priority:** Must have
+
+Parents can record a voice message describing one or more baby-related events.
+
+Acceptance criteria:
+
+- The user can start and stop voice capture.
+- The application provides clear recording feedback.
+- The application converts speech into text.
+- The resulting text is available for review.
+- The user can cancel the recording.
+- The user can correct the transcription before saving.
+- The application handles transcription failures without silently creating incorrect records.
+
+Voice capture is the primary user experience, not an optional secondary feature.
+
+### FR-03 — Text Capture
+
+**Priority:** Must have
+
+Parents can manually type a natural-language description.
+
+Acceptance criteria:
+
+- A parent can enter a free-text description.
+- The text is processed using the same structuring logic as voice input.
+- Text capture does not require the user to complete a predefined form.
+
+### FR-04 — AI Event Extraction
+
+**Priority:** Must have
+
+The AI converts natural-language descriptions into structured event records.
+
+Example input:
+
+"He had 90 ml of formula at 2 AM."
+
+Expected structured output:
+
+- Event type: Bottle feeding
+- Amount: 90
+- Unit: ml
+- Time: 02:00
+- Feeding type: Formula
+
+Acceptance criteria:
+
+- The model returns data following a defined schema.
+- The model must not invent missing values.
+- Unknown values remain unknown.
+- Ambiguous information is identified.
+- Multiple events in one message can be recognised.
+- The parent can review and correct extracted information before saving.
+- Invalid or incomplete model responses must not silently become saved records.
+
+### FR-05 — Review and Confirmation
+
+**Priority:** Must have
+
+Parents must be able to review AI-generated records before they become part of the shared history.
+
+Acceptance criteria:
+
+- The application displays the extracted event details.
+- The parent can confirm the record.
+- The parent can edit individual fields.
+- The parent can discard the proposed record.
+- Ambiguous information is clearly highlighted.
+- The application does not force a parent to provide information that was not included in the original input.
+
+### FR-06 — Event Timeline
+
+**Priority:** Must have
+
+Confirmed events appear in a chronological timeline.
+
+Initial event categories:
+
+| Category | Example information |
+|---|---|
+| Breastfeeding | Side, duration, time |
+| Bottle feeding | Amount, unit, milk type |
+| Sleep | Start time, end time, duration |
+| Wet nappy | Time, optional notes |
+| Dirty nappy | Time, optional notes |
+| General note | Free-text observations |
+
+Acceptance criteria:
+
+- Events appear in chronological order.
+- Each event displays its available information.
+- Missing fields do not prevent an event from appearing.
+- Parents can filter the timeline by category.
+- Parents can open an event to view its details.
+- The timeline does not imply that missing events did not happen.
+
+### FR-07 — Shared Synchronisation
+
+**Priority:** Must have
+
+Both parents must see the same confirmed history on their own devices.
+
+Acceptance criteria:
+
+- A record created by Parent 1 becomes available to Parent 2.
+- A record created by Parent 2 becomes available to Parent 1.
+- Updates to an existing record are synchronised.
+- Deleted records are reflected on both devices.
+- The application communicates when changes have not yet synchronised.
+- The application handles temporary connectivity loss.
+- The application avoids creating duplicate records when a request is retried.
+- Conflicting edits must not silently overwrite one another.
+
+### FR-08 — Record Management
+
+**Priority:** Must have
+
+Parents can manage previously saved events.
+
+Acceptance criteria:
+
+- Both parents can edit a record.
+- Both parents can delete a record.
+- Changes are synchronised across devices.
+- The application records creation and update timestamps.
+- The application identifies which parent created a record.
+
+### FR-09 — Historical Search
+
+**Priority:** Should have
+
+Parents can retrieve previously recorded information.
+
+Example questions:
+
+- "When was the last bottle feed?"
+- "How much formula did he have yesterday?"
+- "Show me the breastfeeding sessions from this morning."
+
+Acceptance criteria:
+
+- Search results are based on saved records.
+- Results show the relevant event and timestamp.
+- The system does not present an unrecorded event as a fact.
+- When no matching information exists, the application clearly says so.
+- The system distinguishes between "not recorded" and "did not happen."
+
+### FR-10 — Optional Recording Suggestions
+
+**Priority:** Should have
+
+NapNook may suggest recording an event, but must never make parents feel obligated to do so.
+
+Acceptance criteria:
+
+- Suggestions are optional.
+- Parents can dismiss suggestions.
+- Dismissing a suggestion does not create repeated pressure.
+- Missing records are not treated as proof that an activity was missed.
+- The product does not use guilt-inducing language.
+
+---
+
+## 7. AI Behaviour and Guardrails
+
+AI is a core product capability and must be treated as a system that requires evaluation, not simply as a text-generation feature.
+
+### 7.1 Core AI Principles
+
+1. **Accuracy over completeness:** Never invent information to fill missing fields.
+2. **Transparency:** Make it clear when information has been interpreted by AI.
+3. **Human confirmation:** Parents approve extracted records before saving.
+4. **Traceability:** Retain the original input associated with the structured record.
+5. **Uncertainty handling:** Ask for clarification when ambiguity could materially change the record.
+6. **Factual retrieval:** Answer questions using recorded information, not assumptions.
+7. **Safety:** Never provide diagnoses or medical treatment recommendations.
+
+### 7.2 Handling Ambiguity
+
+Example:
+
+"He had some milk around two."
+
+The model should not assume:
+
+- Whether it was breast milk or formula.
+- How much milk was consumed.
+- Whether 2 AM or 2 PM was intended, unless context resolves it reliably.
+
+The system should preserve unknown values and ask for clarification when necessary.
+
+### 7.3 Multiple Events
+
+Example:
+
+"He had 90 ml of formula at 2 AM and then slept until 4."
+
+The model should identify two events:
+
+1. Bottle feeding.
+2. Sleep.
+
+The parent should be able to review both before saving.
+
+### 7.4 Medical Safety
+
+NapNook is a record-keeping product, not a medical application.
+
+The AI must not:
+
+- Diagnose jaundice, reflux, infections or other conditions.
+- Recommend medication or dosages.
+- Tell parents that a baby is medically healthy based on logged data.
+- Replace advice from a GP, midwife, paediatrician or emergency service.
+
+If a parent describes a potentially urgent health concern, the product should direct them to appropriate professional or emergency support rather than attempting a diagnosis.
+
+---
+
+## 8. Privacy, Security and Data Management
+
+Baby-related records are sensitive personal information. Privacy must be considered from the beginning of the product design.
+
+### 8.1 Access Control
+
+- Only the two authenticated parents can access household records.
+- Household membership must be enforced server-side.
+- API requests must verify user permissions.
+- API keys must never be exposed in the iOS application.
+- Data must not be accessible through predictable or unauthorised identifiers.
+
+### 8.2 Data Minimisation
+
+- Collect only information needed for the product.
+- Avoid sending unnecessary personal information to external AI services.
+- Do not include real baby data in development or public portfolio demonstrations.
+- Use synthetic data in testing and documentation.
+
+### 8.3 AI Processing
+
+The product may use an external AI service to interpret voice transcriptions and text.
+
+Requirements:
+
+- Disclose when information is processed by an external AI provider.
+- Minimise information sent to the model.
+- Avoid sending raw audio when a transcription is sufficient.
+- Keep AI API credentials on a secure backend.
+- Define data retention and deletion behaviour before launch.
+
+### 8.4 Storage and Synchronisation
+
+The preferred architectural direction is local-first with secure synchronisation between the two parent devices.
+
+This is a product constraint, not a final technical architecture decision.
+
+The technical design must establish:
+
+- What data is stored locally.
+- What data is synchronised.
+- How data is encrypted in transit and at rest.
+- How authentication and household permissions work.
+- How offline changes are reconciled.
+- How records are backed up and recovered.
+- How parents can delete their data.
+
+### 8.5 User Control
+
+Parents must be able to:
+
+- Edit their records.
+- Delete individual records.
+- Understand which information is stored.
+- Request deletion of household data.
+- Understand what information is sent to external AI services.
+
+---
+
+## 9. UX Principles
+
+NapNook should follow these product principles:
+
+### 9.1 Capture in Seconds
+
+Recording an event should require as little interaction as possible.
+
+### 9.2 Voice First, Not Voice Only
+
+Voice is the default capture experience, but text must remain available.
+
+### 9.3 No Pressure to Track Everything
+
+NapNook should support incomplete histories and occasional use.
+
+### 9.4 Shared by Default
+
+Both parents should have the same view of the household history.
+
+### 9.5 AI Should Reduce Work
+
+Parents should not have to understand AI prompts, schemas or structured fields.
+
+### 9.6 Clarity Over Complexity
+
+The interface should prioritise capture, timeline and retrieval rather than dashboards and advanced analytics.
+
+---
+
+## 10. Key User Journeys
+
+### Journey A — Capture an Event by Voice
+
+1. Parent opens NapNook.
+2. Parent taps the voice capture button.
+3. Parent says: "Thomas had 90 ml of formula at 2 AM."
+4. NapNook transcribes the audio.
+5. AI extracts the event details.
+6. Parent reviews the proposed record.
+7. Parent confirms it.
+8. The event appears in the timeline.
+9. The record synchronises to the other parent's iPhone.
+
+**Success condition:** A parent can capture and confirm an event with minimal effort and without manually completing a form.
+
+### Journey B — Retrieve Information
+
+1. Parent opens NapNook.
+2. Parent searches: "When was the last bottle feed?"
+3. NapNook checks the saved history.
+4. The application displays the matching event and timestamp.
+5. If no matching record exists, the application communicates that the information was not found.
+
+**Success condition:** A parent can retrieve recorded information without asking the other parent or searching through messages.
+
+### Journey C — Shared Parenting
+
+1. Parent 1 records a feeding event.
+2. The event synchronises.
+3. Parent 2 opens NapNook on a separate iPhone.
+4. Parent 2 sees the same event in the timeline.
+5. Parent 2 can review or edit the record.
+
+**Success condition:** Both parents can rely on one shared history rather than maintaining separate records.
+
+---
+
+## 11. Success Metrics
+
+Success should measure reduced effort and reliable information, not simply how frequently parents open the app.
+
+### 11.1 Primary Metrics
+
+| Metric | Initial target | Measurement |
+|---|---:|---|
+| Median event capture time | Under 15 seconds | Time from capture initiation to confirmed record |
+| Event type extraction accuracy | At least 95% | Correct event classifications / evaluated events |
+| Provided-field extraction accuracy | At least 90% | Correctly extracted provided fields / evaluated fields |
+| Critical invented facts | 0 | Count of unsupported critical values in evaluation |
+| Historical retrieval success | At least 90% | Successful retrieval tasks / evaluated tasks |
+| Unassisted task completion | At least 80% | Tasks completed without researcher assistance |
+
+These are proposed targets for evaluation, not achieved results or established benchmarks.
+
+### 11.2 Secondary Metrics
+
+- Percentage of AI-generated records corrected before confirmation.
+- Percentage of proposed records discarded.
+- Voice capture completion rate.
+- Synchronisation success rate.
+- Time required to retrieve a historical event.
+- Parent-reported perceived effort.
+- Parent-reported usefulness of the shared timeline.
+
+### 11.3 Guardrail Metrics
+
+- Number of critical unsupported AI claims.
+- Number of unauthorised access incidents.
+- Number of lost or duplicated records.
+- Number of unresolved synchronisation conflicts.
+- Number of users reporting that suggestions create pressure.
+
+---
+
+## 12. AI Evaluation Plan
+
+Before release, NapNook must be evaluated against a controlled dataset.
+
+### 12.1 Test Dataset
+
+Create synthetic examples covering:
+
+- Clear feeding records.
+- Missing quantities.
+- Ambiguous times.
+- Different feeding types.
+- Sleep sessions.
+- Wet and dirty nappies.
+- Multiple events in one sentence.
+- Incorrect speech transcription.
+- Contradictory information.
+- Informal language and common speech patterns.
+
+### 12.2 Evaluation Dimensions
+
+| Dimension | What is evaluated |
+|---|---|
+| Classification | Correct event category |
+| Extraction | Correct values and units |
+| Uncertainty | Appropriate handling of missing information |
+| Hallucination | Whether the model invents facts |
+| Multi-event parsing | Correct separation of events |
+| Consistency | Stable output for equivalent inputs |
+| Retrieval | Answers supported by saved records |
+| Safety | No unsupported medical advice |
+
+### 12.3 Release Gates
+
+The MVP should not be considered ready until:
+
+- The extraction targets have been evaluated on a representative test set.
+- No critical invented facts remain in the release evaluation.
+- Parents can correct AI mistakes before saving.
+- Shared records work across two independent devices.
+- Household access restrictions have been tested.
+- The application handles offline and failed requests safely.
+- Medical safety behaviour has been tested.
+
+---
+
+## 13. Technical Direction — To Be Validated
+
+The following is a proposed implementation direction, not a final architecture commitment.
+
+| Area | Initial direction |
+|---|---|
+| Mobile application | React Native + Expo + TypeScript |
+| Local persistence | SQLite |
+| Shared synchronisation | Secure backend and database |
+| AI processing | OpenAI API through a secure backend gateway |
+| Speech processing | Speech-to-text capability |
+| Structured extraction | LLM with schema-constrained output |
+| Testing | Unit, integration and end-to-end tests |
+| Version control | Public GitHub repository |
+| CI/CD | GitHub Actions |
+
+### Architectural Considerations
+
+- The iOS application must never contain a publicly accessible AI API key.
+- AI processing must be separated from the mobile client through a secure backend.
+- Local persistence and remote synchronisation must support intermittent connectivity.
+- The system must enforce two-parent household access.
+- The architecture must retain the original user input and the resulting structured event where appropriate.
+- Audio retention and deletion must be explicitly defined.
+- Data synchronisation must be designed before choosing the final backend.
+
+The technical design will be documented separately in an Architecture Decision Record (ADR).
+
+---
+
+## 14. MVP Prioritisation
+
+| Capability | Priority | MVP |
+|---|---|---|
+| Parent authentication | Must have | Yes |
+| Two-parent household | Must have | Yes |
+| Voice capture | Must have | Yes |
+| Text capture | Must have | Yes |
+| Speech transcription | Must have | Yes |
+| AI event extraction | Must have | Yes |
+| Review and confirmation | Must have | Yes |
+| Shared timeline | Must have
